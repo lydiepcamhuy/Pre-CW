@@ -3,7 +3,7 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 
-global.Vocab = require('./api/models/vocabModel');
+global.Vocab = require('./api/models/vocabModels');
 const routes = require('./api/routes/vocabRoutes');
 
 mongoose.Promise = global.Promise;
