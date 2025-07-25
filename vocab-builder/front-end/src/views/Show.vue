@@ -13,6 +13,12 @@
           <i class="united kingdom flag"></i> English
         </div>
         <input type="text" readonly  :value="word.english"/>
+        </div>
+        <div class="ui labeled input fluid">
+        <div class="ui label">
+          <i class="spain flag"></i> Spainish
+        </div>
+        <input type="text" readonly  :value="word.spainish"/>
       </div>
       <div class="actions">
         <router-link :to="{ name: 'edit', params: { id: this.$route.params.id }}">

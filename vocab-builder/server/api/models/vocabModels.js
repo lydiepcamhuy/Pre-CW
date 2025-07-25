@@ -11,6 +11,10 @@ const VocabSchema = new Schema(
     german: {
       type: String,
       required: 'German word cannot be blank'
+    },
+    spainish: {
+      type: String,
+      required: 'Spainish word cannot be blank'
     }
   },
   { collection: 'vocab' }
