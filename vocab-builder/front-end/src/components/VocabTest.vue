@@ -15,7 +15,12 @@
           </div>
           <input type="text" placeholder="Enter word..." v-model="english" :disabled="testOver" autocomplete="off" />
         </div>
-  
+        <div class="ui labeled input fluid">
+          <div class="ui label">
+    <i class="spain flag"></i> Spanish
+  </div>
+  <input type="text" placeholder="Enter word..." v-model="spanish" :disabled="testOver" autocomplete="off"/>
+</div>
         <button class="positive ui button" :disabled="testOver">Submit</button>
       </form>
   
@@ -41,6 +46,7 @@
         result: '',
         resultClass: '',
         english: '',
+        spanish: '',
         score: 0,
         testOver: false
       };
@@ -51,35 +57,52 @@
       }
     },
     methods: {
-      onSubmit: function() {
-        if (this.english === this.currWord.english) {
-          this.flash('Correct!', 'success', { timeout: 1000 });
-          this.score += 1;
-        } else {
-          this.flash('Wrong!', 'error', { timeout: 1000 });
-          this.incorrectGuesses.push(this.currWord.german);
-        }
-  
-        this.english = '';
-        this.randWords.shift();
-  
-        if (this.randWords.length === 0) {
-          this.testOver = true;
-          this.displayResults();
-        }
-      },
-      displayResults: function() {
-        if (this.incorrectGuesses.length === 0) {
-          this.result = 'You got everything correct. Well done!';
-          this.resultClass = 'success';
-        } else {
-          const incorrect = this.incorrectGuesses.join(', ');
-          this.result = `<strong>You got the following words wrong:</strong> ${incorrect}`;
-          this.resultClass = 'error';
-        }
-      }
+  onSubmit() {
+    console.log("SUBMIT TEST");
+
+    const curr = this.currWord;
+    if (!curr || !curr.english || !curr.spanish) {
+      console.error('currWord thiếu dữ liệu:', curr);
+      return;
     }
-  };
+
+    const correctEnglish = this.english.trim().toLowerCase() === curr.english.trim().toLowerCase();
+    const correctSpanish = this.spanish.trim().toLowerCase() === curr.spanish.trim().toLowerCase();
+
+    if (correctEnglish && correctSpanish) {
+      this.flash('Correct!', 'success', { timeout: 1000 });
+      this.score += 1;
+    } else {
+      this.flash('Wrong!', 'error', { timeout: 1000 });
+
+      const incorrect = [];
+      if (!correctEnglish) incorrect.push(`${curr.german} (English)`);
+      if (!correctSpanish) incorrect.push(`${curr.german} (Spanish)`);
+      this.incorrectGuesses.push(...incorrect);
+    }
+
+    this.english = '';
+    this.spanish = '';
+    this.randWords.shift();
+
+    if (this.randWords.length === 0) {
+      this.testOver = true;
+      this.displayResults();
+    }
+  },
+
+  displayResults() {
+    if (this.incorrectGuesses.length === 0) {
+      this.result = 'You got everything correct. Well done!';
+      this.resultClass = 'success';
+    } else {
+      const incorrect = this.incorrectGuesses.join(', ');
+      this.result = `<strong>You got the following words wrong:</strong> ${incorrect}`;
+      this.resultClass = 'error';
+    }
+  }
+}
+     }
   </script>
   
   <style scoped>

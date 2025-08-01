@@ -20,7 +20,7 @@
         <div class="ui label">
           <i class="spain flag"></i> Spanish
       </div>
-      <input type="text" placeholder="Enter word..." v-model="word.spainish" />
+      <input type="text" placeholder="Enter word..." v-model="word.spanish" />
     </div>
 
  
@@ -39,7 +39,7 @@
         return {
           english: '',
           german: '',
-          spainish: ''  
+          spanish: ''  
         };
        }
      }
@@ -51,7 +51,7 @@
    },
    methods: {
      onSubmit: function() {
-    if (this.word.english === '' || this.word.german === ''|| this.word.spainish === '') {
+    if (this.word.english === '' || this.word.german === ''|| this.word.spanish === '') {
       this.errorsPresent = true;
     } else {
       this.$emit('createOrUpdate', this.word);
