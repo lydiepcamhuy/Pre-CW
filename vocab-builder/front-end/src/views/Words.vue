@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Words</h1>
+    <h1> Huy - Words</h1>
     <table id="words" class="ui celled compact table">
       <thead>
         <tr>
